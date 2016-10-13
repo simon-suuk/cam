@@ -88,6 +88,11 @@
 				</button>
 			</a>
 			<br />
+			
+			<div><center><img class="lazy" style="display:none; height:100%; width:100%" id="smallimage" src="" /></center></div>
+			<video width="400"><script src="video.mp4" type="video/mp4"></script></video>
+			<audio><script src="audio.mp3" type="audio/mpeg"></script></audio>
+			
 			</div><!-- /content -->
 		</div><!-- /page -->
 		
@@ -202,12 +207,17 @@
 				destType = navigator.camera.DestinationType;
 				
 				document.getElementById("capturePhoto").onclick = function (){
-					navigator.camera.getPicture(onPhotoDataSuccess, onFail, quality:50, destType:destinationType.DATA_URL);
+					navigator.camera.getPicture(onPhotoDataSuccess, onFail, {quality:50, destType:destinationType.DATA_URL});
 				}
 				
 				function onPhotoDataSuccess(imageData){
 					var smallImage = document.getElementById("smallImage");
 					smallImage.style.display = 'block';
+					smallimage.src = "data:image/jpeg;base64, " +imageData;
+				}
+				
+				function onFail(message){
+					alert('Failed because: '+ message);
 				}
 			}
 		}
