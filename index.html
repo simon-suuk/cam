@@ -27,6 +27,7 @@
 		<script src="js/app/app.js"></script>
 		<script src="js/app/bootstrap.js"></script>
 		<script src="js/lib/jquery.mobile.js"></script>
+		<script src="js/lib/camera.js"></script>
 		<style>
 			.ui-selectmenu.ui-popup .ui-input-search {
 				margin-left: .5em;
@@ -82,16 +83,23 @@
 			</a>
 			<br />
 			
-			<a href="#" data-transition="pop">
+			<!--a href="#" data-transition="pop">
 				<button id="capturePhoto">
 					Access Camera
 				</button>
 			</a>
-			<br />
+			<br /-->
 			
-			<div><center><img class="lazy" style="display:none; height:100%; width:100%" id="smallimage" src="" /></center></div>
+			    <button onclick="capturePhotoWithData();">Capture Photo With Image Data</button> <br>
+			    <button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
+			    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+			    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+			    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+			    <img style="display:none;" id="largeImage" src="" />
+			    
+			<!--div><center><img class="lazy" style="display:none; height:100%; width:100%" id="smallimage" src="" /></center></div>
 			<video width="400"><script src="video.mp4" type="video/mp4"></script></video>
-			<audio><script src="audio.mp3" type="audio/mpeg"></script></audio>
+			<audio><script src="audio.mp3" type="audio/mpeg"></script></audio-->
 			
 			</div><!-- /content -->
 		</div><!-- /page -->
@@ -195,33 +203,5 @@
 			// it looks better that way.
 			.textinput("option", "inset", !placeInDialog).end().prependTo(destination);
 		});
-		
-		function(){
-		
-			document.addEventListener('deviceready', onDeviceReady.bind(this), false);
-			var picSource;
-			var destType;
-			
-			function onDeviceReady(){
-				picSource = navigator.camera.PictureSourceType;
-				destType = navigator.camera.DestinationType;
-				
-				document.getElementById("capturePhoto").onclick = function (){
-					navigator.camera.getPicture(onPhotoDataSuccess, onFail, {quality:50, destType:destinationType.DATA_URL});
-				}
-				
-				function onPhotoDataSuccess(imageData){
-					var smallImage = document.getElementById("smallImage");
-					smallImage.style.display = 'block';
-					smallimage.src = "data:image/jpeg;base64, " +imageData;
-				}
-				
-				function onFail(message){
-					alert('Failed because: '+ message);
-				}
-			}
-		}
-		
-		
 	</script>
 </html>
